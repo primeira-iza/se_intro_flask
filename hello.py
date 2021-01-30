@@ -1,5 +1,7 @@
 from flask import Flask
 from flask import request
+import unittest
+
 app = Flask(__name__)
 
 moje_imie = input("What's your name? ")
@@ -19,20 +21,26 @@ def wiadomosc():
     return 'Hello, World!'
 
 @app.route('/hobby')
-def wiadomosc():
+def hobby():
     return moje_hobby
 
-# http://127.0.0.1:5000/oblicz?l1=10&l2=20&op=plus
+# http://127.0.0.1:8080/oblicz?l1=10&l2=20&op=plus
 @app.route('/oblicz')
 def oblicz():
     l1_arg = request.args.get('l1')
-    if l1_args is None:
-        return 'brak argumentu l1'
+    if l1_arg is None:
+        return 'Brak argumentu l1.'
     l1 = int(l1_arg)
 
     l2_arg = request.args.get('l2')
+    if l2_arg is None:
+        return 'Brak argumentu l2.'
     l2 = int(l2_arg)
+
     op = request.args.get('op')
+    if op is None:
+        return 'Brak operatora.'
+
     if op == 'plus':
         s = l1 + l2
         return f'{s}'
